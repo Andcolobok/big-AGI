@@ -1,0 +1,16 @@
+import socket
+
+# Параметри для з'єднання
+HOST = '127.0.0.1'  # localhost
+PORT = 65432        # порт, на який працює сервер
+
+# Створення сокету
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.connect((HOST, PORT)) # Підключення до сервера
+    print("Ви підключилися до сервера...")
+
+    while True:
+        message = input("Введіть повідомлення: ") # Введення повідомлення
+        s.sendall(message.encode()) # Відправлення повідомлення на сервер
+        data = s.recv(1024) # Отримання відповіді від сервера
+        print("Сервер:", data.decode()) # Виведення відповіді сервера
